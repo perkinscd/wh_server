@@ -23,10 +23,10 @@
             $query = mysqli_real_escape_string($db, $query);
             mysqli_real_query($db, $query);
 
-            $response = "false";
+            $response = "innerfalse";
         }else{$response = "true";}
 
-	}else{$response = "false";}
+	}else{$response = "outerfalse";}
 
 	echo $response;
 
