@@ -5,10 +5,16 @@
 	require 'DB.php';
 	$db = DB::connect();
     $response = "";
+    $log = fopen('../dbg.txt', 'w');
+    fwrite($log, "post:  {$_POST['name']}, {$_POST['years']}, {$_POST['type']}, {$_POST['availability']}, {$_POST['distance']}, {$_POST['pace']}, {$_POST['time']} ");
 	mysqli_set_charset($db, 'utf8');
 	$query = "INSERT INTO user (displayName, yearsActive, runningType, runningAvailability, runningDistance, runningPace, runningTime)
 		VALUES ({$_POST['name']}, {$_POST['years']}, {$_POST['type']}, {$_POST['availability']}, {$_POST['distance']}, {$_POST['pace']}, {$_POST['time']});";
+
+	fwrite($log, "\nquery: " . $query);
 	$query = mysqli_real_escape_string($db, $query);
+
+	fwrite($log, "\ncleaned query: " . $query);
 
 	if (mysqli_real_query($db, $query)){
 		$id = mysqli_insert_id($db);
