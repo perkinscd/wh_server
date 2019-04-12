@@ -7,7 +7,7 @@
     $response = "";
 	mysqli_set_charset($db, 'utf8');
 	$query = "INSERT INTO user (displayName, yearsActive, runningType, runningAvailability, runningDistance, runningPace, runningTime)
-		VALUES ({$_POST['name']}, {$_POST['years']}, {$_POST['type']}, {$_POST['availability']}, {$_POST['distance']}, {$_POST['pace']}, {$_POST});";
+		VALUES ({$_POST['name']}, {$_POST['years']}, {$_POST['type']}, {$_POST['availability']}, {$_POST['distance']}, {$_POST['pace']}, {$_POST['time']});";
 	$query = mysqli_real_escape_string($db, $query);
 
 	if (mysqli_real_query($db, $query)){
