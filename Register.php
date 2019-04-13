@@ -8,7 +8,7 @@
 
     mysqli_set_charset($db, 'utf8');
 	$query = "INSERT INTO walkhealthy.User (locationId, displayName, yearsActive, runningType, runningAvailability, runningDistance, runningPace, runningTime)
-		VALUES (1, {$_POST['name']}, {$_POST['years']}, {$_POST['type']}, {$_POST['availability']}, {$_POST['distance']}, {$_POST['pace']}, {$_POST['time']})";
+		VALUES (1, '{$_POST['name']}', '{$_POST['years']}', '{$_POST['type']}', '{$_POST['availability']}', '{$_POST['distance']}', '{$_POST['pace']}', '{$_POST['time']}')";
 
 
 
@@ -21,7 +21,7 @@
 		$password = $_POST['password'];
 		$salt = random_bytes(32);
 		$hash = hash('sha256', ($password . $salt));
-		$query = "INSERT INTO walkhealthy.Login (username, passwordHash, passwordSalt) VALUES ({$_POST['email']}, $hash, {$salt})";
+		$query = "INSERT INTO walkhealthy.Login (username, passwordHash, passwordSalt) VALUES ('{$_POST['email']}', '$hash', '{$salt}')";
 		$query = mysqli_real_escape_string($db, $query);
 
 		if(!mysqli_real_query($db, $query)){

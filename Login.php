@@ -6,7 +6,7 @@
 
 	$db = DB::connect();
 	mysqli_set_charset($db, 'utf8');
-	$query = "SELECT * FROM walkhealthy.Login WHERE username = {$_POST['email']}";
+	$query = "SELECT * FROM walkhealthy.Login WHERE username = '{$_POST['email']}''";
 	$query =  mysqli_escape_string($db, $query);
 	$result = mysqli_query($db, $query);
 	if ($result){
