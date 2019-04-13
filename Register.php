@@ -11,7 +11,8 @@
 		VALUES ({$_POST['name']}, {$_POST['years']}, {$_POST['type']}, {$_POST['availability']}, {$_POST['distance']}, {$_POST['pace']}, {$_POST['time']})";
 
 
-	$query = mysqli_real_escape_string($db, $query);
+
+	//$query = mysqli_real_escape_string($db, $query);
 
 
 
