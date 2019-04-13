@@ -1,31 +1,30 @@
 <?php
-	//post variables: email, password, name, years, distance, pace, hours, minutes, type, availability, months, days, time
+	//post variables: email, password, name, years, distance, pace, hours, minutes, type, availability
 
 
 	require 'DB.php';
 	$db = DB::connect();
     $response = "";
-    $log = fopen('../dbg.txt', 'w');
-    fwrite($log, "post:  {$_POST['name']}, {$_POST['years']}, {$_POST['type']}, {$_POST['availability']}, {$_POST['distance']}, {$_POST['pace']}, {$_POST['time']} ");
-	mysqli_set_charset($db, 'utf8');
-	$query = "INSERT INTO user (displayName, yearsActive, runningType, runningAvailability, runningDistance, runningPace, runningTime)
-		VALUES ({$_POST['name']}, {$_POST['years']}, {$_POST['type']}, {$_POST['availability']}, {$_POST['distance']}, {$_POST['pace']}, {$_POST['time']});";
 
-	fwrite($log, "\nquery: " . $query);
+    mysqli_set_charset($db, 'utf8');
+	$query = "INSERT INTO walkhealthy.User (displayName, yearsActive, runningType, runningAvailability, runningDistance, runningPace, runningTime)
+		VALUES ({$_POST['name']}, {$_POST['years']}, {$_POST['type']}, {$_POST['availability']}, {$_POST['distance']}, {$_POST['pace']}, {$_POST['time']})";
+
+
 	$query = mysqli_real_escape_string($db, $query);
 
-	fwrite($log, "\ncleaned query: " . $query);
+
 
 	if (mysqli_real_query($db, $query)){
 		$id = mysqli_insert_id($db);
 		$password = $_POST['password'];
 		$salt = random_bytes(32);
 		$hash = hash('sha256', ($password . $salt));
-		$query = "INSERT INTO Login (username, passwordHash, passwordSalt) VALUES ({$_POST['email']}, $hash, {$salt});";
+		$query = "INSERT INTO walkhealthy.Login (username, passwordHash, passwordSalt) VALUES ({$_POST['email']}, $hash, {$salt})";
 		$query = mysqli_real_escape_string($db, $query);
 
 		if(!mysqli_real_query($db, $query)){
-		    $query = "DELETE FROM user WHERE userId = $id";
+		    $query = "DELETE FROM walkhealthy.User WHERE userId = $id";
             $query = mysqli_real_escape_string($db, $query);
             mysqli_real_query($db, $query);
 
