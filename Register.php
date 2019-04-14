@@ -12,7 +12,7 @@
 
 
 
-	$query = mysqli_real_escape_string($db, $query);
+	//$query = mysqli_real_escape_string($db, $query);
 
 
 
@@ -22,24 +22,24 @@
 		$salt = random_bytes(32);
 		$hash = hash('sha256', ($password . $salt));
 		$query = "INSERT INTO walkhealthy.Login (userId, username, passwordHash, passwordSalt) VALUES ($id, '{$_POST['email']}', '$hash', '{$salt}')";
-		$query = mysqli_real_escape_string($db, $query);
+		//$query = mysqli_real_escape_string($db, $query);
 
 		if(!mysqli_real_query($db, $query)){
 		    $query = "DELETE FROM walkhealthy.User WHERE userId = $id";
-            $query = mysqli_real_escape_string($db, $query);
+            //$query = mysqli_real_escape_string($db, $query);
             mysqli_real_query($db, $query);
 
             $response = "innerfalse";
             $errors = mysqli_error_list($db);
             foreach($errors as $error){
-                fwrite($file, $error);
+                fwrite($file, "$error");
             }
         }else{$response = "true";}
 
 	}else{$response = "outerfalse";
         $errors = mysqli_error_list($db);
         foreach($errors as $error){
-            fwrite($file, $error);
+            fwrite($file, "$error");
         }
 
 	}
