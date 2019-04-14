@@ -8,6 +8,7 @@
         else{
             echo "Y U NO WORK.";
         }
+
         $runningType = $_GET["runningType"];
         $runningAvailability = $_GET["runningDays"];
         //$runningDistanceMin = $_GET["distMin"];
