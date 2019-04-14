@@ -17,6 +17,7 @@
 
 
 	if (mysqli_real_query($db, $query)){
+	    fwrite($file, "this");
 		$id = mysqli_insert_id($db);
 		$password = $_POST['password'];
 		$salt = random_bytes(32);
@@ -30,17 +31,13 @@
             mysqli_real_query($db, $query);
 
             $response = "innerfalse";
-            $errors = mysqli_error_list($db);
-            foreach($errors as $error){
-                fwrite($file, "$error");
-            }
+            $error = mysqli_error($db);
+            fwrite($file, $error);
         }else{$response = "true";}
 
 	}else{$response = "outerfalse";
-        $errors = mysqli_error_list($db);
-        foreach($errors as $error){
-            fwrite($file, "$error");
-        }
+        $error = mysqli_error($db);
+        fwrite($file, $error);
 
 	}
     fclose($file);
