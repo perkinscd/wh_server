@@ -5,7 +5,7 @@
 	require 'DB.php';
 	$db = DB::connect();
     $response = "";
-    $file = fopen('../log.txt', 'w');
+    $file = fopen('../log1.txt', 'w');
     mysqli_set_charset($db, 'utf8');
 	$query = "INSERT INTO walkhealthy.User (locationId, displayName, yearsActive )
 		VALUES (2, '{$_POST['name']}', {$_POST['years']})";
@@ -22,7 +22,7 @@
         fwrite($file, "1");
 		$password = $_POST['password'];
         fwrite($file, "3");
-		$salt = "asdfjnklewafdn"//random_bytes(32); random bytes is throwing an exception and this just needs to work now please
+		$salt = "asdfjnklewafdn";//random_bytes(32); random bytes is throwing an exception and this just needs to work now please
         fwrite($file, "4");
 
 		$hash = hash('sha1', ($password . $salt));
