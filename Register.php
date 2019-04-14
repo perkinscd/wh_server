@@ -22,7 +22,7 @@
         fwrite($file, "1");
 		$password = $_POST['password'];
         fwrite($file, "3");
-		$salt = random_bytes(32);
+		$salt = "asdfjnklewafdn"//random_bytes(32); random bytes is throwing an exception and this just needs to work now please
         fwrite($file, "4");
 
 		$hash = hash('sha1', ($password . $salt));
