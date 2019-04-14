@@ -17,20 +17,17 @@
 
 
 	if (mysqli_real_query($db, $query)){
-	    fwrite($file, "this");
+
 		$id = mysqli_insert_id($db);
 		$password = $_POST['password'];
-		try{
-            $salt = random_bytes(32);
-        }catch(Exception $e){
-            fwrite($file, $e->getMessage());
-            die(500);
-        }
+		$salt = random_bytes(32);
+        fwrite($file, "0");
 
-		$hash = hash('sha256', ($password . $salt));
+		$hash = hash('sha1', ($password . $salt));
+		fwrite($file, "1");
 		$query = "INSERT INTO walkhealthy.Login (userId, username, passwordHash, passwordSalt) VALUES ($id, '{$_POST['email']}', '$hash', '{$salt}')";
 		//$query = mysqli_real_escape_string($db, $query);
-
+        fwrite($file, "2");
 		if(!mysqli_real_query($db, $query)){
 		    $query = "DELETE FROM walkhealthy.User WHERE userId = $id";
             //$query = mysqli_real_escape_string($db, $query);
