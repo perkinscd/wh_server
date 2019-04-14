@@ -5,7 +5,7 @@
 	require 'DB.php';
 	$db = DB::connect();
     $response = "";
-
+    $file = fopen('../log.txt', 'w');
     mysqli_set_charset($db, 'utf8');
 	$query = "INSERT INTO walkhealthy.User (locationId, displayName, yearsActive, runningType, runningAvailability, runningDistance, runningPace, runningTime)
 		VALUES (1, '{$_POST['name']}', {$_POST['years']}, '{$_POST['type']}', '{$_POST['availability']}', {$_POST['distance']}, '{$_POST['pace']}', '{$_POST['time']}')";
@@ -30,10 +30,20 @@
             mysqli_real_query($db, $query);
 
             $response = "innerfalse";
+            $errors = mysqli_error_list($db);
+            foreach($errors as $error){
+                fwrite($file, $error);
+            }
         }else{$response = "true";}
 
-	}else{$response = "outerfalse";}
+	}else{$response = "outerfalse";
+        $errors = mysqli_error_list($db);
+        foreach($errors as $error){
+            fwrite($file, $error);
+        }
 
+	}
+    fclose($file);
 	echo $response;
 
 ?>
