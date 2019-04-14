@@ -8,7 +8,7 @@
     $file = fopen('../log.txt', 'w');
     mysqli_set_charset($db, 'utf8');
 	$query = "INSERT INTO walkhealthy.User (locationId, displayName, yearsActive )
-		VALUES (1, '{$_POST['name']}', {$_POST['years']})";
+		VALUES (2, '{$_POST['name']}', {$_POST['years']})";
 
 
 
