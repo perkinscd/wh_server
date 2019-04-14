@@ -17,19 +17,13 @@
 
 
 	if (mysqli_real_query($db, $query)){
-        fwrite($file, "0");
 		$id = mysqli_insert_id($db);
-        fwrite($file, "1");
 		$password = $_POST['password'];
-        fwrite($file, "3");
 		$salt = "asdfjnklewafdn";//random_bytes(32); random bytes is throwing an exception and this just needs to work now please
-        fwrite($file, "4");
-
 		$hash = hash('sha1', ($password . $salt));
-		fwrite($file, "5");
 		$query = "INSERT INTO walkhealthy.Login (userId, username, passwordHash, passwordSalt) VALUES ($id, '{$_POST['email']}', '$hash', '{$salt}')";
 		//$query = mysqli_real_escape_string($db, $query);
-        fwrite($file, "6");
+
 		if(!mysqli_real_query($db, $query)){
 		    $query = "DELETE FROM walkhealthy.User WHERE userId = $id";
             //$query = mysqli_real_escape_string($db, $query);
