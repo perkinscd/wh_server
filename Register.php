@@ -20,7 +20,13 @@
 	    fwrite($file, "this");
 		$id = mysqli_insert_id($db);
 		$password = $_POST['password'];
-		$salt = random_bytes(32);
+		try{
+            $salt = random_bytes(32);
+        }catch(Exception $e){
+            fwrite($file, $e->getMessage());
+            die(500);
+        }
+
 		$hash = hash('sha256', ($password . $salt));
 		$query = "INSERT INTO walkhealthy.Login (userId, username, passwordHash, passwordSalt) VALUES ($id, '{$_POST['email']}', '$hash', '{$salt}')";
 		//$query = mysqli_real_escape_string($db, $query);
