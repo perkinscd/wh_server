@@ -18,7 +18,7 @@ if ($result){
 		$response .= ',' . 'asdflkjh';//random_bytes(KEY_LENGTH); //still can't use random_bytes for some reason
 		echo $response;
 	}else{echo'false';}
-}else{echo 'false';}
+}else{echo 'otherfalse';}
 
 
 ?>
