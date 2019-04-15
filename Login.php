@@ -13,7 +13,7 @@ if ($result){
 	$result = mysqli_fetch_assoc($result);
 	$salt = $result['passwordSalt'];
 	$hash = $result['passwordHash'];
-	if($hash == hash('sha256', ($_POST['password'] . $salt))){
+	if($hash == hash('sha1', ($_POST['password'] . $salt))){
 		$response = $result['loginId'];
 		$response .= ',' . 'asdflkjh';//random_bytes(KEY_LENGTH); //still can't use random_bytes for some reason
 		echo $response;
