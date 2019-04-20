@@ -4,8 +4,8 @@
 
     $db = DB::connect();
 
-    $user = $_POST["userId"];   // Type of running
-    $group = $_POST["groupId"];   // Running Days
+    $user = $_POST["userId"];   // User wishing to join
+    $group = $_POST["groupId"];   // Group to join
     $owner = null;  // Group owner (retrieved from database)
     $time = $_POST["timestamp"];    // Time of request initiation from user's system
     $message = $_POST["message"]; // Message to group owner
