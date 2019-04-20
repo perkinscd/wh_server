@@ -1,4 +1,5 @@
 <?php
+    include 'DB.php';
     $db = DB::connect();
     header('Content-Type: application/json');
     $runningType = $_POST["runningType"];
@@ -15,7 +16,7 @@
     fwrite($report, "\n\n");
     fwrite($report, "$query");
     fclose($report);
-    /*
+
     if(mysqli_real_query($db, $query)){
         $response = ['success' => true];
         $response = json_encode($response);
@@ -31,5 +32,5 @@
 
     mysqli_close($db);
     echo $response;
-*/
+
     ?>
