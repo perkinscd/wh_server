@@ -7,9 +7,9 @@
     $runningType = $_POST["runningType"];   // Type of running
     $runningAvailability = $_POST["runningDays"];   // Running Days
     $runningTime = $_POST["runningTime"];   // Running Times
-    $runningLocation = $_POST["locationId"]; // Group's location
+    $runningLocation = $_POST["locationId"]; // Location of Event
 
-    $query = "SELECT * FROM walkhealthy.Group WHERE runningType=$runningType AND runningAvailability=$runningAvailability AND runningTime=$runningTime AND locationId=$runningLocation";
+    $query = "SELECT * FROM walkhealthy.Event WHERE runningType=$runningType AND runningAvailability=$runningAvailability AND runningTime=$runningTime AND locationId=$runningLocation";
     $result = mysqli_query($db, $query);
 
     if ($result) {
@@ -23,8 +23,7 @@
 
         // Send results
         echo($result_set);
-    }
-    else {
+    } else {
         echo("false");
     }
 
