@@ -7,6 +7,7 @@
     $runningType = $_POST["runningType"];   // Type of running
     $runningAvailability = $_POST["runningDays"];   // Running Days
     $runningTime = $_POST["runningTime"];   // Running Times
+    $runningLocation = $_POST["locationId"]; // Group's location
 
     $query = "SELECT * FROM walkhealthy.Group WHERE runningType=$runningType AND runningAvailability=$runningAvailability AND runningTime=$runningTime";
     $result = mysqli_query($db, $query);
