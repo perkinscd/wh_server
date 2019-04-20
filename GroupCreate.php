@@ -18,11 +18,11 @@
     fclose($report);
 
     if(mysqli_real_query($db, $query)){
-        $response = ['success' => true];
+        $response = ['o' => "success"];
         $response = json_encode($response);
     }
     else{
-        $response = ['success' => false];
+        $response = ['o' => false];
         $response = json_encode($response);
         $report = fopen('../log.txt', 'a');
         fwrite($report, "\n\n");
@@ -32,5 +32,4 @@
 
     mysqli_close($db);
     echo $response;
-
     ?>
