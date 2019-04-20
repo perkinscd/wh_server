@@ -4,10 +4,10 @@
     $runningType = $_POST["runningType"];
     $runningAvailability = $_POST["runningDays"];
     $runningTime = $_POST["runningTime"];
-
     $query = "INSERT INTO walkhealthy.Group (locationId, runningType, runningAvailability, runningTime ) VALUES (2, '$runningType','$runningAvailability', '$runningTime')";
 
-    $report = fopen('../log.txt', 'a');
+
+    $report = fopen('../log.txt', 'w');
     fwrite($report, "\n\n");
     fwrite($report, "$runningAvailability");
     fwrite($report, "\n\n");
