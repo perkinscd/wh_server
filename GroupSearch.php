@@ -1,21 +1,12 @@
 <?php
         require 'DB.php';
+        header('Content-Type: application/json');
         $db = DB::connect();
+        $runningType = $_POST["runningType"];
+        $runningMonths = $_POST["runningMonths"];
+        $runningAvailability = $_POST["runningDays"];
+        $runningTime = $_POST["runningTime"];
 
-        if(mysqli_connect_errno()){
-            echo "Group Search page workie.";
-        }
-        else{
-            echo "Y U NO WORK.";
-        }
-
-        $runningType = $_GET["runningType"];
-        $runningAvailability = $_GET["runningDays"];
-        //$runningDistanceMin = $_GET["distMin"];
-        //$runningDistanceMax = $_GET["distMax"];
-        //$runningPaceMin = $_GET["paceMin"];
-        //$runningPaceMax = $_GET["paceMax"];
-        $runningTime = $_GET["runningTime"];
-
+        $query = "SELECT * FROM walkhealthy.Group WHERE runningType=$runningType AND runningAvailability=$runningMonths";
 
 ?>
