@@ -9,7 +9,7 @@
     $runningTime = $_POST["runningTime"];   // Running Times
     $runningLocation = $_POST["locationId"]; // Group's location
 
-    $query = "SELECT * FROM walkhealthy.Group WHERE runningType=$runningType AND runningAvailability=$runningAvailability AND runningTime=$runningTime";
+    $query = "SELECT * FROM walkhealthy.Group WHERE runningType=$runningType AND runningAvailability=$runningAvailability AND runningTime=$runningTime AND locationId=$runningLocation";
     $result = mysqli_query($db, $query);
 
     if ($result) {
