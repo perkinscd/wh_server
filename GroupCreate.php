@@ -12,9 +12,12 @@
     fwrite($report, "\n\n");
     fwrite($report, "$runningAvailability");
     fwrite($report, "\n\n");
+
     fwrite($report, "$runningType");
     fwrite($report, "\n\n");
     fwrite($report, "$query");
+    fwrite($report, "$_POST");
+    fwrite($report, "\n\n");
     fclose($report);
 
     if(mysqli_real_query($db, $query)){
