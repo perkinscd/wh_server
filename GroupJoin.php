@@ -1,4 +1,15 @@
 <?php
+    /*************************************************************
+     * @Author:             Chelsie Perkins, perkinscd@etsu.edu
+     * Date Created:        April 20, 2019
+     * Date Last Modified:  April 24, 2019
+     * Current State:       Non-functional / Testing
+     *
+     * @Purpose:
+     * Allows a user to join a group by adding that user as a
+     * GroupMember in the database.
+     *************************************************************/
+
     require 'DB.php';
     header('Content-Type: application/json');
     
@@ -8,12 +19,12 @@
     $group = $_POST["groupId"];   // Group to join
     $date = $_POST["joinDate"]; // Date user joined (retrieved from system)
 
-    $query = "INSERT INTO walkhealthy.GroupMember VALUES ($user, $group, $date)";
+    $query = "INSERT INTO walkhealthy.GroupMember VALUES ($user, $group, '$date')";
     
     if (mysqli_query($db, $query)) {
-        echo "true";
+        echo "success";
     }
     else {
-        echo "false";
+        echo "oopsie";
     }
 ?>

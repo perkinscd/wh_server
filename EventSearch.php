@@ -1,4 +1,27 @@
 <?php
+    /*************************************************************
+     * @Author:             Chelsie Perkins, perkinscd@etsu.edu
+     * Date Created:        April 20, 2019
+     * Date Last Modified:  April 24, 2019
+     * Current State:       Awaiting app functionality
+     *
+     * @Purpose:
+     * Allows a user to search for Events based on their
+     * preferences.
+     *
+     * @Description:
+     * Receives a POST request from the WalkHealthy application,
+     * checks that all variables in the request have been assigned
+     * values, then queries the database for Events containing all
+     * specified values for the columns runningType,
+     * runningAvailability, and/or runningTime. Query results are
+     * retrieved as associative arrays (key => value) where the
+     * column names are the keys. These arrays are pushed to an
+     * array which is encoded as a JSON object that is sent to the
+     * app as a response. If there are no query results, a String
+     * response explaining this is sent to the app.
+     *************************************************************/
+
     require 'DB.php';
     header('Content-Type: application/json');
 
@@ -45,6 +68,8 @@
     else {
         $where .= "";
     }
+
+    //end of check for populated search parameters
 
     //build the query with added search parameters - events always have a location value of 2 (until location retrieval works)
     $query = "SELECT eventName, eventDescription, eventDate, runningType, runningAvailability, runningTime FROM walkhealthy.Event WHERE " . $where . "locationId=2";
