@@ -7,9 +7,30 @@
     $runningType = $_POST["runningType"];   // Type of running
     $runningAvailability = $_POST["runningDays"];   // Running Days
     $runningTime = $_POST["runningTime"];   // Running Times
-    $runningLocation = $_POST["locationId"]; // Group's location
 
-    $query = "SELECT * FROM walkhealthy.Group WHERE runningType=$runningType AND runningAvailability=$runningAvailability AND runningTime=$runningTime AND locationId=$runningLocation";
+    //remove ending comma from kris's lovely string building
+    rtrim($runningAvailability, ",");
+    rtrim($runningType, ",");
+
+    //to store parameters for where clause
+    $where = "";
+
+    //really gross looking check for populated search parameter
+    if(!empty($runningType) && !is_null($runningType)) {
+        $where .= "runningType=$runningType AND ";
+    }
+
+    //another really gross looking check for populated search parameter
+    if(!empty($runningAvailability) && !is_null($runningAvailability)) {
+        $where .= "runningAvailability=$runningAvailability AND ";
+    }
+
+    //last really gross looking check for populated search parameter
+    if(!empty($runningTime) && !is_null($runningTime)) {
+        $where .= "runningTime=$runningTime AND ";
+    }
+
+    $query = "SELECT groupName, numberOfMembers, groupDescription, runningType, runningAvailability, runningTime FROM walkhealthy.Group WHERE " . $where . " AND locationId=2";
     $result = mysqli_query($db, $query);
 
     if ($result) {
