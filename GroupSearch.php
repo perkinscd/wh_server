@@ -2,75 +2,76 @@
     require 'DB.php';
     header('Content-Type: application/json');
 
+    //connect to db using connection method in DB.php
     $db = DB::connect();
-
-    if(!empty($_POST["runningType"])) {
-        //remove ending comma from kris's lovely string building
-        rtrim($_POST["runningType"], ",");
-
-        $runningType = $_POST["runningType"];   // Type of running
-    }
-    else {
-        $runningType = null;
-    }
-
-    if(!empty($_POST["runningDays"])) {
-        //remove ending comma from kris's lovely string building
-        rtrim($_POST["runningDays"], ",");
-
-        $runningAvailability = $_POST["runningDays"];   // Running Days
-    }
-    else {
-        $runningAvailability = null;
-    }
-
-    if(!empty($_POST["runningTime"])) {
-        $runningTime = $_POST["runningTime"];   // Running Times
-    }
-    else {
-        $runningTime = null;
-    }
-
 
     //to store parameters for where clause
     $where = "";
 
 
-    //really gross looking check for populated search parameter
-    if(!empty($runningType)) {
+    //really gross looking check for populated search parameters:
+
+    //if running type is specified
+    if(!empty($_POST["runningType"])) {
+        //remove ending comma from kris's lovely string building
+        $runningType =  rtrim($_POST["runningType"], ",");
+        //add runningType to query string
         $where .= "runningType='$runningType' AND ";
     }
+    //if running type is not specified, do nothing
+    else {
+        $where .= "";
+    }
 
-    //another really gross looking check for populated search parameter
-    if(!empty($runningAvailability)) {
+    //if running days are specified
+    if(!empty($_POST["runningDays"])) {
+        //remove ending comma from kris's lovely string building
+        $runningAvailability = rtrim($_POST["runningDays"], ",");
+        //add runningAvailability to query string
         $where .= "runningAvailability='$runningAvailability' AND ";
     }
-
-    //last really gross looking check for populated search parameter
-    if(!empty($runningTime)) {
-        $where .= "runningTime='$runningTime' AND ";
+    //if running days are not specified, do nothing
+    else {
+        $where .= "";
     }
 
+    //if running time is specified
+    if(!empty($_POST["runningTime"])) {
+        $runningTime = $_POST["runningTime"];
+        //add runningTime to query string
+        $where .= "runningTime='$runningTime' AND ";
+    }
+    //if running time is not specified, do nothing
+    else {
+        $where .= "";
+    }
+
+    //build the query with added search parameters - groups always have a location value of 2 (until location retrieval works)
     $query = "SELECT groupName, numberOfMembers, groupDescription, runningType, runningAvailability, runningTime FROM walkhealthy.Group WHERE " . $where . "locationId=2";
+    //execute the query and get the result
     $result = mysqli_query($db, $query);
 
+    //if there's a result, send the retrieved rows as a response to the app
     if ($result) {
+        //array to hold query results
         $result_set = array();
 
-        // Fetch multiple rows
+        //will keep fetching rows from query results until there are no more rows
         while ($row = mysqli_fetch_assoc($result)) {
-            // Add to results
+            //add to results array
             array_push($result_set, $row);
         }
 
-        // Send results
+        //send results to the app
         echo(json_encode($result_set));
     }
+    //if there's not a result, send a facetious response to the app
     else {
         echo("*gasp* No groups were found matching your criteria!");
     }
 
-    // Free result set
+    //free the result set
     mysqli_free_result($result);
+    //close db connection
     mysqli_close($db);
 ?>
