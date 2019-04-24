@@ -64,7 +64,7 @@
         }
 
         // Send results
-        echo($result_set);
+        echo(json_encode($result_set));
     }
     else {
         echo("*gasp* No groups were found matching your criteria!");
