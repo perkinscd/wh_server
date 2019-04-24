@@ -57,17 +57,18 @@
         $result_set = array();
 
         //will keep fetching rows from query results until there are no more rows
+        //each row is fetched as an associative array - column names are the keys
         while ($row = mysqli_fetch_assoc($result)) {
-            //add to results array
+            //add row array to results array (sorry)
             array_push($result_set, $row);
         }
 
-        //send results to the app
+        //send results to the app as a json response
         echo(json_encode($result_set));
     }
     //if there's not a result, send a facetious response to the app
     else {
-        echo("*gasp* No groups were found matching your criteria!");
+        echo("*gasp* No events were found matching your criteria!");
     }
 
     //free the result set
