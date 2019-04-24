@@ -46,7 +46,7 @@
         echo($result_set);
     }
     else {
-        echo("false");
+        echo("*gasp* No groups were found matching your criteria!");
     }
 
     // Free result set
