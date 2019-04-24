@@ -30,7 +30,7 @@
         $where .= "runningTime=$runningTime AND ";
     }
 
-    $query = "SELECT groupName, numberOfMembers, groupDescription, runningType, runningAvailability, runningTime FROM walkhealthy.Group WHERE " . $where . " AND locationId=2";
+    $query = "SELECT groupName, numberOfMembers, groupDescription, runningType, runningAvailability, runningTime FROM walkhealthy.Group WHERE " . $where . "locationId=2";
     $result = mysqli_query($db, $query);
 
     if ($result) {
