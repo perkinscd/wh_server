@@ -4,30 +4,51 @@
 
     $db = DB::connect();
 
-    $runningType = $_POST["runningType"];   // Type of running
-    $runningAvailability = $_POST["runningDays"];   // Running Days
-    $runningTime = $_POST["runningTime"];   // Running Times
+    if(!empty($_POST["runningType"])) {
+        //remove ending comma from kris's lovely string building
+        rtrim($_POST["runningType"], ",");
 
-    //remove ending comma from kris's lovely string building
-    rtrim($runningAvailability, ",");
-    rtrim($runningType, ",");
+        $runningType = $_POST["runningType"];   // Type of running
+    }
+    else {
+        $runningType = null;
+    }
+
+    if(!empty($_POST["runningDays"])) {
+        //remove ending comma from kris's lovely string building
+        rtrim($_POST["runningDays"], ",");
+
+        $runningAvailability = $_POST["runningDays"];   // Running Days
+    }
+    else {
+        $runningAvailability = null;
+    }
+
+    if(!empty($_POST["runningTime"])) {
+        $runningTime = $_POST["runningTime"];   // Running Times
+    }
+    else {
+        $runningTime = null;
+    }
+
 
     //to store parameters for where clause
     $where = "";
 
+
     //really gross looking check for populated search parameter
-    if(!empty($runningType) && !is_null($runningType)) {
-        $where .= "runningType=$runningType AND ";
+    if(!empty($runningType)) {
+        $where .= "runningType='$runningType' AND ";
     }
 
     //another really gross looking check for populated search parameter
-    if(!empty($runningAvailability) && !is_null($runningAvailability)) {
-        $where .= "runningAvailability=$runningAvailability AND ";
+    if(!empty($runningAvailability)) {
+        $where .= "runningAvailability='$runningAvailability' AND ";
     }
 
     //last really gross looking check for populated search parameter
-    if(!empty($runningTime) && !is_null($runningTime)) {
-        $where .= "runningTime=$runningTime AND ";
+    if(!empty($runningTime)) {
+        $where .= "runningTime='$runningTime' AND ";
     }
 
     $query = "SELECT groupName, numberOfMembers, groupDescription, runningType, runningAvailability, runningTime FROM walkhealthy.Group WHERE " . $where . "locationId=2";
